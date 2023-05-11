@@ -16,6 +16,7 @@ interface ProductsProviderProps {
   deleteFromCart(id: number): void;
   changeQuantity(product: Product, actionType: 'INC' | 'DEC'): void;
   total: number;
+  calcTotal: any;
   cart: Product[];
   wishlist: Product[];
   addToWishlist(product: Product): void;
@@ -29,6 +30,7 @@ export const ProductsContext = createContext<ProductsProviderProps>({
   deleteFromCart: () => {},
   changeQuantity: () => {},
   total: 0,
+  calcTotal: 0,
   cart: [],
   wishlist: [],
   addToWishlist: () => {},
@@ -73,27 +75,43 @@ export const ProductsProvider = ({children}: any) => {
     calcTotal();
   }, [cart]);
 
-  const changeQuantity = (product: Product, actionType: 'INC' | 'DEC') => {
-    const findProduct = products.find(item => item.id === product.id);
+  // const changeQuantity = (product: Product, actionType: 'INC' | 'DEC') => {
+  //   const findProduct = products.find(item => item.id === product.id);
 
-    const getNonExistingProduct = products.filter(
-      item => item.id !== findProduct?.id,
-    );
-    if (actionType === 'INC') {
-      setProducts(() => [
-        ...getNonExistingProduct,
-        {...findProduct!, quantity: findProduct!.quantity + 1},
-      ]);
-    } else {
-      setProducts(() => [
-        ...getNonExistingProduct,
-        {...findProduct!, quantity: findProduct!.quantity - 1},
-      ]);
-    }
+  //   const getNonExistingProduct = products.filter(
+  //     item => item.id !== findProduct?.id,
+  //   );
+  //   if (actionType === 'INC') {
+  //     setProducts(() => [
+  //       ...getNonExistingProduct,
+  //       {...findProduct!, quantity: findProduct!.quantity + 1},
+  //     ]);
+  //   } else {
+  //     setProducts(() => [
+  //       ...getNonExistingProduct,
+  //       {...findProduct!, quantity: findProduct!.quantity - 1},
+  //     ]);
+  //   }
+  // };
+  const changeQuantity = (product: Product, actionType: 'INC' | 'DEC') => {
+    const updatedCart = cart.map(item => {
+      if (item.id === product.id) {
+        return {
+          ...item,
+          quantity:
+            actionType === 'INC' ? item.quantity + 1 : item.quantity - 1,
+        };
+      }
+      return item;
+    });
+    setCart(updatedCart);
+    setProducts(updatedCart);
   };
 
   const addToWishlist = (product: Product) => {
-    setWishlist(prev => [...prev, product]);
+    if (!wishlist.find((item: any) => item.id === product.id)) {
+      setWishlist([...wishlist, product]);
+    }
   };
 
   const deleteFromWishlist = (id: number) => {
@@ -108,6 +126,7 @@ export const ProductsProvider = ({children}: any) => {
     deleteFromCart,
     changeQuantity,
     total,
+    calcTotal,
     cart,
     wishlist,
     addToWishlist,

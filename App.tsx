@@ -7,19 +7,22 @@ import DetailsScreen from './src/screens/DetailsScreen';
 import WishListScreen from './src/screens/WishListScreen';
 import {ProductsProvider} from './src/context/ProductsContext';
 import BasketScreen from './src/screens/CartScreen';
+import ProfileScreen from './src/screens/ProfileScreen';
 
 type RootStackParamList = {
   Home: undefined;
   Cart: undefined;
-  ProductDetails: undefined;
+  Profile: undefined;
   Wishlist: undefined;
+  ProductDetails: undefined;
 };
 
 type HomeStackParamList = {
   Home: undefined;
   Cart: undefined;
-  ProductDetails: undefined;
+  Profile: undefined;
   Wishlist: undefined;
+  ProductDetails: undefined;
 };
 
 const HomeStack = createNativeStackNavigator<HomeStackParamList>();
@@ -27,9 +30,7 @@ const HomeStack = createNativeStackNavigator<HomeStackParamList>();
 const HomeStackScreen = () => (
   <HomeStack.Navigator screenOptions={{headerShown: false}}>
     <HomeStack.Screen name="Home" component={HomeScreen} />
-    {/* <HomeStack.Screen name="Cart" component={BasketScreen} /> */}
     <HomeStack.Screen name="ProductDetails" component={DetailsScreen} />
-    {/* <HomeStack.Screen name="Wishlist" component={WishListScreen} /> */}
   </HomeStack.Navigator>
 );
 
@@ -63,7 +64,7 @@ const BottomTabNavigator = () => (
     }}>
     <Tab.Screen name="Home" component={HomeStackScreen} />
     <Tab.Screen name="Cart" component={BasketScreen} />
-    <Tab.Screen name="ProductDetails" component={DetailsScreen} />
+    <Tab.Screen name="Profile" component={ProfileScreen} />
     <Tab.Screen name="Wishlist" component={WishListScreen} />
   </Tab.Navigator>
 );

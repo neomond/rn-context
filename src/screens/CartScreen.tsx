@@ -1,4 +1,4 @@
-import {useContext} from 'react';
+import {useContext, useEffect} from 'react';
 import {
   Text,
   View,
@@ -10,7 +10,12 @@ import {
 import {ProductsContext} from '../context/ProductsContext';
 
 const BasketScreen = () => {
-  const {cart, deleteFromCart} = useContext(ProductsContext);
+  const {cart, deleteFromCart, changeQuantity, calcTotal, total} =
+    useContext(ProductsContext);
+
+  useEffect(() => {
+    calcTotal();
+  }, [cart]);
 
   return (
     <SafeAreaView>
@@ -30,19 +35,25 @@ const BasketScreen = () => {
               <TouchableOpacity onPress={() => deleteFromCart(item.id)}>
                 <Text style={{color: 'red'}}>Remove</Text>
               </TouchableOpacity>
+              <TouchableOpacity onPress={() => changeQuantity(item, 'INC')}>
+                <Text style={{color: 'green'}}>+</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => changeQuantity(item, 'DEC')}
+                disabled={item.quantity === 0}>
+                <Text style={{color: 'red'}}>-</Text>
+              </TouchableOpacity>
             </View>
-            {/* <View style={{flexDirection: 'row'}}>
-              <Button title="+" onPress={() => changeQuantity(item, 'INC')} />
-              <Button title="-" onPress={() => changeQuantity(item, 'DEC')} />
-            </View> */}
           </View>
         ))}
+        <Text>Total: {total}</Text>
       </SafeAreaView>
     </SafeAreaView>
   );
 };
 
 export default BasketScreen;
+
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
