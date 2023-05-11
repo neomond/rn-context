@@ -36,9 +36,14 @@ const HomeScreen = ({navigation}: any) => {
   const renderProductItem = ({item}: any) => {
     return (
       <View style={styles.card}>
-        <TouchableOpacity onPress={() => goToDetail(item.id)}>
-          <Text>{item.title}</Text>
-          <Text>{item.price}</Text>
+        <TouchableOpacity
+          style={{justifyContent: 'center', rowGap: 15}}
+          onPress={() => goToDetail(item.id)}>
+          <View style={{rowGap: 15}}>
+            <Text style={styles.topTitle}>{item.title}</Text>
+            <Text style={styles.priceStyle}>${item.price}</Text>
+          </View>
+
           <Image
             source={{uri: item.image}}
             style={styles.prodImage}
@@ -81,5 +86,11 @@ const styles = StyleSheet.create({
     height: 160,
     resizeMode: 'contain',
     borderRadius: 10,
+  },
+  topTitle: {
+    fontSize: 18,
+  },
+  priceStyle: {
+    fontSize: 22,
   },
 });

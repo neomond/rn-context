@@ -8,6 +8,7 @@ import WishListScreen from './src/screens/WishListScreen';
 import {ProductsProvider} from './src/context/ProductsContext';
 import BasketScreen from './src/screens/CartScreen';
 import ProfileScreen from './src/screens/ProfileScreen';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 type RootStackParamList = {
   Home: undefined;
@@ -47,15 +48,13 @@ const BottomTabNavigator = () => (
           iconName = focused ? 'home' : 'home-outline';
         } else if (route.name === 'Cart') {
           iconName = focused ? 'cart' : 'cart-outline';
-        } else if (route.name === 'ProductDetails') {
-          iconName = focused
-            ? 'information-circle'
-            : 'information-circle-outline';
+        } else if (route.name === 'Profile') {
+          iconName = focused ? 'person' : 'person-outline';
         } else if (route.name === 'Wishlist') {
           iconName = focused ? 'heart' : 'heart-outline';
         }
 
-        // return <Ionicons name={iconName} size={size} color={color} />;
+        return <Ionicons name={iconName} size={size} color={color} />;
       },
     })}
     tabBarOptions={{
