@@ -24,13 +24,14 @@ type HomeStackParamList = {
   Profile: undefined;
   Wishlist: undefined;
   ProductDetails: undefined;
+  HomeStack: undefined;
 };
 
 const HomeStack = createNativeStackNavigator<HomeStackParamList>();
 
 const HomeStackScreen = () => (
   <HomeStack.Navigator screenOptions={{headerShown: false}}>
-    <HomeStack.Screen name="Home" component={HomeScreen} />
+    <HomeStack.Screen name="HomeStack" component={HomeScreen} />
     <HomeStack.Screen name="ProductDetails" component={DetailsScreen} />
   </HomeStack.Navigator>
 );
