@@ -75,24 +75,6 @@ export const ProductsProvider = ({children}: any) => {
     calcTotal();
   }, [cart]);
 
-  // const changeQuantity = (product: Product, actionType: 'INC' | 'DEC') => {
-  //   const findProduct = products.find(item => item.id === product.id);
-
-  //   const getNonExistingProduct = products.filter(
-  //     item => item.id !== findProduct?.id,
-  //   );
-  //   if (actionType === 'INC') {
-  //     setProducts(() => [
-  //       ...getNonExistingProduct,
-  //       {...findProduct!, quantity: findProduct!.quantity + 1},
-  //     ]);
-  //   } else {
-  //     setProducts(() => [
-  //       ...getNonExistingProduct,
-  //       {...findProduct!, quantity: findProduct!.quantity - 1},
-  //     ]);
-  //   }
-  // };
   const changeQuantity = (product: Product, actionType: 'INC' | 'DEC') => {
     const updatedCart = cart.map(item => {
       if (item.id === product.id) {
